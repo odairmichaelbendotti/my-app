@@ -40,12 +40,12 @@ docker run --name api -p 3000:3000 -v ${PWD}:/app api
 
 A aplicação estará disponível em `http://localhost:3000`.
 
-### 5. Rode as migrations do Prisma
+### 5. Sincronize o schema do Prisma
 
 Com o container rodando, abra um novo terminal e execute:
 
 ```bash
-docker exec -it api npx prisma migrate deploy
+docker exec -it api npx prisma db push
 ```
 
 ### 6. (Opcional) Abra o Prisma Studio
@@ -61,7 +61,7 @@ Acesse em `http://localhost:5555`.
 ## Rotas disponíveis
 
 | Método | Rota            | Descrição               |
-|--------|-----------------|-------------------------|
+| ------ | --------------- | ----------------------- |
 | GET    | `/curso-docker` | Retorna mensagem da API |
 
 ## Comandos úteis
@@ -79,9 +79,6 @@ docker logs -f api
 # Regenerar o Prisma Client após alterar o schema
 docker exec -it api npx prisma generate
 
-# Criar uma nova migration
-docker exec -it api npx prisma migrate dev --name nome_da_migration
-
-# Resetar o banco de dados
-docker exec -it api npx prisma migrate reset
+# Sincronizar o schema com o banco
+docker exec -it api npx prisma db push
 ```
